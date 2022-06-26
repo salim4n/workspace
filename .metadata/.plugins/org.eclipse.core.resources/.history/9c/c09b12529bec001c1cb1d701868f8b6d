@@ -1,0 +1,31 @@
+package fr.eni.projetEnchere.dal;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.List;
+
+import fr.eni.projetEnchere.bo.Utilisateur;
+
+public interface UtilisateurDAO {
+
+	public void insertUtilisateur(Utilisateur utilisateur) throws SQLException;
+
+	public List<Utilisateur> voirUtilisateurs() throws SQLException;
+	
+	public Utilisateur selectByPseudo(String pseudo) throws SQLException;
+
+	public Utilisateur deleteUtilisateur(int numero) throws SQLException;
+
+	public Utilisateur selectByNo(int numero) throws SQLException;
+	
+	public void updateUtilisateur(Utilisateur utilisateur) throws SQLException;
+	
+	public void UpdateCredit(Utilisateur utilisateur) throws SQLException;
+	
+	public int voirCredit(Utilisateur utilisateur)throws SQLException;
+	
+	public Utilisateur utilisateurBuilder(ResultSet rs)throws SQLException;
+	
+	
+
+}

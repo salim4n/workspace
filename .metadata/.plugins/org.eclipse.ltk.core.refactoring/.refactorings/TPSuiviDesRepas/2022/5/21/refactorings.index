@@ -1,0 +1,13 @@
+1653649575817	Rename resource 'NewFile.xml'
+1653651442553	Move 'context.xml' to 'webapp'
+1653653313595	Delete element
+1653653656613	Move 'context.xml' to 'META-INF'
+1653653670949	Move 'context.xml' to 'webapp'
+1653653687368	Move 'context.xml' to 'META-INF'
+1653656955663	Infer generic type arguments
+1653660297597	Encapsulate field 'dataSource'
+1653664302574	Encapsulate field 'id_repas'
+1653664438644	Encapsulate field 'id_aliment'
+1653664570650	Encapsulate field 'listAliment'
+1653850052874	Encapsulate field 'methodeDAO'
+1653850321409	Delete element

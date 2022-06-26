@@ -1,0 +1,25 @@
+package fr.eni.projetEnchere.bo;
+
+
+
+public class Encherir  {
+	
+
+	Utilisateur utilisateur;
+	
+	public Encherir() {
+		
+	}
+	
+	public Encherir(Utilisateur utilisateur) {
+		this.utilisateur = utilisateur;
+	}
+	
+	
+	
+	
+	
+	
+	
+
+}

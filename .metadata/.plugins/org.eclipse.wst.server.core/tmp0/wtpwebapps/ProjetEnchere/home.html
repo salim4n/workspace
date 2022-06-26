@@ -1,0 +1,138 @@
+<html>
+<head>
+<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+	<script src="bootstrap/js/jquery-1.11.0.min.js"></script>
+	<script src="bootstrap/js/bootstrap.min.js"></script>
+	<script src="bootstrap/js/wow.min.js"></script>
+	<meta charset="UTF-8">
+	<style>
+		tr, td {
+		  padding: 15px;
+		}
+		
+		.reemborder{
+			border:  2px solid #555;
+		}
+	</style>
+</head>
+<body>
+<div class="container">
+<div  align="right">
+	 <ul class="nav" style="display: inline-flex">
+    <li class="nav-item">
+      <a class="nav-link" href="home.html">Enchères</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="vendreUnArticle.html">Vendre un article</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="monProfil.html">Mon profil</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link disabled" href="#">Déconnexion</a>
+    </li>
+  </ul>
+
+</div>
+ 
+	<h2>Eni-Enchères</h2>
+		<div align="center">
+			<h4>Liste des enchères</h4>
+		</div>
+		
+		<div class="col-md-6">
+		<form>
+		<div class="row">
+			 <div class="form-row">
+		    <div class="form-group">
+		      <label for="Filtres:" class="form-label">Filtres:</label>
+			  <input class="form-control" list="datalistOptions" id="Filtres:" placeholder="Le nom de l'article contient">	
+		    </div>
+		   </div>
+		</div>
+		 <div class="row">
+		    <div class="form-group">
+		     <label for="inputState" class="form-label">Catégorie:</label>
+			  <select id="inputState" class="form-control">
+			        <option selected>Toutes...</option>
+			        <option>...</option>
+		      </select>	
+		   </div>
+		 </div> 
+		 <div class="row">
+		 <div class="form-check col-md-3">
+			  <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked>
+			  <label class="form-check-label " for="exampleRadios1">
+			   <label class="form-check-label " for="exampleRadios1">
+			   Achats
+			  </label>
+		</div>
+		<div class="form-check col-md-3">
+			   <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked>
+			  <label class="form-check-label" for="exampleRadios1">
+			   Mes ventes
+			  </label>
+		</div>
+		 </div> 
+		  <div class="row col-md-6">
+		   <div class="form-check">
+			  <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+			  <label class="form-check-label" for="defaultCheck1">
+			    enchères ouvertes
+			  </label>
+			</div>
+			 <div class="form-check">
+			  <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+			  <label class="form-check-label" for="defaultCheck1">
+			   mes enchères en cours
+			  </label>
+			</div>
+
+			 <div class="form-check">
+			  <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+			  <label class="form-check-label" for="defaultCheck1">
+			   mes enchères remportées
+			  </label>
+			</div>
+		 </div> 
+		   <div class="row col-md-6">
+		   <div class="form-check">
+			  <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+			  <label class="form-check-label" for="defaultCheck1">
+			    mes ventes en cours
+			  </label>
+			</div>
+			 <div class="form-check">
+			  <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+			  <label class="form-check-label" for="defaultCheck1">
+			    ventes non débutées
+			  </label>
+			</div>
+			 <div class="form-check">
+			  <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+			  <label class="form-check-label" for="defaultCheck1">
+			    ventes terminées
+			  </label>
+			</div>
+		 </div>   
+		</form>
+			    
+		<div class="row">
+		</div>
+		<div class="row">
+		 <div class="col-md-6">
+		 
+		 <img class="" src="/wp-content/themes/creativeforces/images/majapic.jpg" width="200px">
+    	</div>
+	   		<div class="col-md-6">
+	      		<p  class="card-text">PC Gamer pour travailer</p>
+				<p  class="card-text">Prix: 210 points</p>
+				<p  class="card-text">Fin de l'enchère: 14/06/2022</p>
+				<p  class="card-text"> Vendeur: <a href="#">jojo44</a></p>
+	    	</div>
+		</div>
+	</div>
+</div>
+
+</body>
+</html>

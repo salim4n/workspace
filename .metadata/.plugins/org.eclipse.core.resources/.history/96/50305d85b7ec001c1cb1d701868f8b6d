@@ -1,0 +1,31 @@
+package fr.eni.projetEnchere.bll;
+
+import java.util.List;
+
+import fr.eni.projetEnchere.BusinessException;
+import fr.eni.projetEnchere.bo.CategorieArticle;
+import fr.eni.projetEnchere.dal.CategorieArticleDAO;
+import fr.eni.projetEnchere.dal.CategorieArticleFactory;
+
+public class CategorieManager {
+	
+	private static CategorieArticleDAO categorieArticleDAO;
+	
+	public CategorieManager() {
+		categorieArticleDAO=CategorieArticleFactory.getCategorieArticleDAO();
+	}
+	
+	public CategorieArticle ajoutCategorie(String libelle) {
+		CategorieArticle categorieArticle = new CategorieArticle(libelle);
+		return categorieArticle;
+	}
+	
+	public CategorieArticle selectByLibelle(String libelle) {
+		return categorieArticleDAO.selectByLibelle(libelle);
+	}
+	
+	public static List<CategorieArticle> selectAllCategories() throws BusinessException
+	{
+		return categorieArticleDAO.selectAll();
+	}
+}

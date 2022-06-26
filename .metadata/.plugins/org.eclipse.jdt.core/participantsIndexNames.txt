@@ -1,0 +1,7 @@
+INDEX VERSION 1.131
+D:\workspace\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\2734822637.index
+\Chifoumi\src\main\java
+D:\workspace\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\3646023004.index
+\TPSuiviDesRepas\src\main\java
+D:\workspace\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\179015153.index
+\ProjetEnchere\src\main\java

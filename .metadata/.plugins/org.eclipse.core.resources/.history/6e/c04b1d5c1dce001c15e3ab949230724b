@@ -1,0 +1,106 @@
+package fr.eni.test.heritage;
+
+public  class Guerrier extends Humains {
+
+	protected int degatMax;
+	protected int sante;
+	protected int endurance;
+
+	public Guerrier(String name, int degatMax, int sante, int endurance) {
+		super(name);
+		this.degatMax = degatMax;
+		this.setSante(sante);
+		this.endurance = endurance;
+	}
+
+	public Guerrier(String name) {
+		super(name);
+	}
+
+
+
+	public Guerrier() {
+		super();
+	}
+
+	public  void takeEstocDamage() {
+		int i;
+		i = (int) ((degatMax/2) + Math.random() * degatMax);
+		this.sante -= i;
+		System.out.printf("%s subit une attaque d'estoc !!%nsa sante est de %d et son endurance de %d%n%n",
+				this.getName(),
+				this.getSante(),
+				this.getEndurance());
+	}
+	
+	public  void takeLateralDamage() {
+		int i;
+		i = (int) ((degatMax/3) + Math.random() * (degatMax/1.5));
+		this.sante -= i;
+		System.out.printf("%s subit une attaque lateral !!%nsa sante est de %d et son endurance de %d%n%n",
+				this.getName(),
+				this.getSante(),
+				this.getEndurance());
+		
+	}
+	
+	public  void takeHorizontalDamage() {
+		int i;
+		i = (int) ((degatMax/2.5) + Math.random() * (degatMax/1.2));
+		this.sante -= i;
+		System.out.printf("%s subit une attaque horizontal !!%nsa sante est de %d et son endurance de %d%n%n",
+				this.getName(),
+				this.getSante(),
+				this.getEndurance());
+	}
+
+	public  void takeRageDamage() {
+		this.sante -= degatMax * 1.5;
+		System.out.printf("%s subit une attaque surpuissante !!%nsa sante est de %d et son endurance de %d%n%n",
+				this.getName(),
+				this.getSante(),
+				this.getEndurance());
+	}
+	
+	public  void dodgeDamage() {
+		consoEndurance();
+		System.out.printf("%s a esquive une attaque !!%n son endurance est de %d%n%n",
+				this.getName(),
+				this.getEndurance());
+	}
+	public  void blockDamage() {
+		consoEndurance();
+		System.out.printf("%s a bloquer une attaque !!%n son endurance est de %d%n%n",
+				this.getName(),
+				this.getEndurance());
+	}
+
+	public  void consoEndurance() {
+		endurance -= 20;
+	}
+
+	public int getDegatMax() {
+		return degatMax;
+	}
+
+	public void setDegatMax(int degatMax) {
+		this.degatMax = degatMax;
+	}
+
+	public int getSante() {
+		return sante;
+	}
+
+	public void setSante(int sante) {
+		this.sante = sante;
+	}
+	
+	public int getEndurance() {
+		return endurance;
+	}
+	
+	
+	
+
+
+}

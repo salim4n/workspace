@@ -1,0 +1,112 @@
+package fr.eni.projetEnchere.bll;
+
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+import fr.eni.projetEnchere.BusinessException;
+import fr.eni.projetEnchere.bo.Utilisateur;
+import fr.eni.projetEnchere.dal.UtilisateurDAO;
+import fr.eni.projetEnchere.dal.UtilisateurFactory;
+
+public class UtilisateurManager {
+
+	private UtilisateurDAO utilisateurDao;
+	BusinessException exeption = new BusinessException();
+
+	public UtilisateurManager() {
+
+		this.utilisateurDao = UtilisateurFactory.getUtilisateur();
+	}
+
+	public void ajoutUtilisateur(String pseudo, String nom, String prenom, String email, String telephone, String rue,
+			String codePostal, String ville, String motDePasse, int credit, int administrateur) throws SQLException {
+
+		Utilisateur utilisateur = new Utilisateur(pseudo, nom, prenom, email, telephone, rue, codePostal, ville,
+				motDePasse, credit, administrateur);
+		utilisateurDao.insertUtilisateur(utilisateur);
+
+	}
+
+	public void ModifierUtilisateur(String pseudo, String nom, String prenom, String email, String telephone,
+			String rue, String codePostal, String ville, String motDePasse, int credit, int administrateur)
+			throws SQLException {
+
+		Utilisateur utilisateur = new Utilisateur(pseudo, nom, prenom, email, telephone, rue, codePostal, ville,
+				motDePasse, credit, administrateur);
+		utilisateurDao.updateUtilisateur(utilisateur);
+
+	}
+
+	public void ModifierCredit(int credit) throws SQLException {
+		utilisateurDao.UpdateCredit(credit);
+	}
+
+	public int showCredit(int credit) throws SQLException {
+		return utilisateurDao.voirCredit(credit);
+	}
+
+	public Utilisateur selectParNumero(int noUtilisateur)throws SQLException {
+		Utilisateur utilisateur = new Utilisateur();
+		try {
+			utilisateur = utilisateurDao.selectByNo(noUtilisateur);
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.err.println("erreur dans le numero de l'utilisateur");
+		}
+		return utilisateur;
+
+	}
+
+	public Utilisateur selectByPseudo(String pseudo)throws SQLException {
+		Utilisateur utilisateur = new Utilisateur();
+		try {
+			utilisateur = utilisateurDao.selectByPseudo(pseudo);
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.err.println("erreur dans le pseudo de l'utilisateur");
+		}
+		return utilisateur;
+
+	}
+
+	public boolean loginUtilisateur(String ID, String MP) {
+		Utilisateur utilisateur = new Utilisateur();
+		UtilisateurManager Um = new UtilisateurManager();
+		utilisateur = Um.selectByPseudo(ID);
+		boolean error = false;
+		if (utilisateur.getNom() == null) {
+			exeption.ajouterErreur(CodesResultatBLL.ID_INCONNU_ERREUR);
+			error = true;
+		}
+
+		else if (!utilisateur.getMotDePasse().equals(MP)) {
+			exeption.ajouterErreur(CodesResultatBLL.MP_FALSE_ERREUR);
+			error = true;
+		}
+
+		return error;
+
+	}
+
+	public Utilisateur deleteUtilisateur(int numero) throws SQLException {
+		UtilisateurManager utilM = new UtilisateurManager();
+		Utilisateur utilisateur = new Utilisateur();
+		try {
+			utilisateur = utilM.utilisateurDao.deleteUtilisateur(numero);
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+		}
+		System.out.println("cet utilisateur est bien supprime");
+		return null;
+
+	}
+
+	public List<Utilisateur> voirToutLesUtilisateurs() throws SQLException {
+		List<Utilisateur> liste = new ArrayList<>();
+		return liste = utilisateurDao.voirUtilisateurs();
+
+	}
+
+}

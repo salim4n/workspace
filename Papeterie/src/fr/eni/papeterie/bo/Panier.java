@@ -1,0 +1,110 @@
+package fr.eni.papeterie.bo;
+
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * @author Eni Ecole Le panier stocke les articles sélectionnés par
+ *         l'utilisateur au cours de sa navigation. Le panier n'est pas
+ *         sauvegardé.
+ */
+public class Panier {
+
+	// Attributs d'instance
+	private List<Ligne> lignesPanier;
+	private float montant;
+
+	// Constructeurs
+	public Panier() {
+		lignesPanier = new ArrayList<>();
+		montant = 0f;
+	}
+
+	// Getters et Setters
+	/**
+	 * @return the lignesPanier
+	 */
+	public final List<Ligne> getLignesPanier() {
+		return lignesPanier;
+	}
+
+	/**
+	 * Ajouter une ligne au panier. Le prix de la ligne est calculé (Qte*prix)
+	 * 
+	 * @param numero
+	 * @param article
+	 * @param qte
+	 * 
+	 */
+	public void addLigne(Article article, int qte) {
+
+		Ligne ligneAdding = new Ligne(article, qte);
+		lignesPanier.add(ligneAdding);
+		montant += ligneAdding.getPrix() * qte;
+	}
+
+	/**
+	 * Retourne la ligne sélectionnée du Panier ou null si pas trouvée
+	 * 
+	 * @param index
+	 * @return
+	 */
+	public final Ligne getLigne(int index) {
+		return lignesPanier.get(index);
+	}
+
+	/**
+	 * Présenter le détail du panier
+	 */
+	@Override
+	public String toString() {
+		StringBuffer bf = new StringBuffer();
+		bf.append("Panier : \n\n");
+		for (Ligne ligne : lignesPanier) {
+			bf.append("ligne ");
+			bf.append(lignesPanier.indexOf(ligne));
+			bf.append(" :\t");
+			bf.append(ligne.toString());
+			bf.append("\n");
+		}
+		bf.append("\nValeur du panier : " + getMontant());
+		bf.append("\n\n");
+		return bf.toString();
+	}
+
+	/**
+	 * Supprimer la ligne du panier. La quantité en stock augmente de la
+	 * quantité associée à la ligne
+	 * 
+	 * @param numero
+	 */
+	public void removeLigne(int index) {
+		Ligne l = lignesPanier.remove(index);
+		montant -= l.getPrix()*l.qte;
+	}
+
+	/**
+	 * Modifier la quantité placée dans le panier La quantité en stock augment
+	 * ou diminue en fonction de cette nouvelle qté
+	 * 
+	 * @param index
+	 * @param newQte
+	 * @throws PlusEnStockException
+	 */
+	public void updateLigne(int index, int newQte) {
+		Ligne l = this.getLigne(index);
+		montant -= l.getPrix()*l.qte;
+		l.setQte(newQte);
+		
+		montant += l.getPrix()*l.qte;
+	}
+
+	public float getMontant() {
+		return montant;
+	}
+
+	public void setMontant(float montant) {
+		this.montant = montant;
+	}
+
+}

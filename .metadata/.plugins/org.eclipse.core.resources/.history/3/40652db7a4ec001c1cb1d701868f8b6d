@@ -1,0 +1,23 @@
+package fr.eni.projetEnchere.bll;
+
+import java.sql.SQLException;
+
+import fr.eni.projetEnchere.bo.Retrait;
+import fr.eni.projetEnchere.dal.RetraitDAO;
+import fr.eni.projetEnchere.dal.RetraitFactory;
+
+public class RetraitManager {
+
+	private RetraitDAO retraitDao;
+
+	public RetraitManager() {
+		this.retraitDao = RetraitFactory.getRetrait();
+
+	}
+
+	public void ajoutRetrait() throws SQLException {
+		
+
+	}
+
+}

@@ -1,0 +1,20 @@
+package fr.eni.projetEnchere.bll;
+
+import fr.eni.projetEnchere.bo.Utilisateur;
+
+public class TestBLL {
+
+	public static void main(String[] args) {
+
+		Utilisateur utilisateur = new Utilisateur();
+
+		UtilisateurManager um = new UtilisateurManager();
+
+		utilisateur = um.selectByPseudo("maxou");
+
+		System.out.println(utilisateur.getPseudo());
+		System.out.println(utilisateur.toString());
+
+	}
+
+}

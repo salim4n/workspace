@@ -1,0 +1,15 @@
+package fr.eni.test.heritage;
+
+public interface comportementArme {
+	
+	
+	void estoc();
+	void lateral ();
+	void horizontal ();
+	void rage();
+	void dodge();
+	void block();
+	void push();
+
+
+}

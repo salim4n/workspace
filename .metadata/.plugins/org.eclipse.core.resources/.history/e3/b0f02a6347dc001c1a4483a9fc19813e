@@ -1,0 +1,95 @@
+package fr.eni.servlet;
+
+import java.io.IOException;
+
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+/**
+ * Servlet implementation class MaServlet
+ */
+@WebServlet("/MaServlet")
+public class MaServlet extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		int botChoix = (int) (Math.random() * 3);
+		String botTentative = "";
+		if (botChoix == 0) {
+			botTentative = "pierre";
+		} else if (botChoix == 1) {
+			botTentative = "feuille";
+		} else if (botChoix == 2) {
+			botTentative = "ciseau";
+		}
+		System.out.println("choix du bot : " + botTentative);
+		String requete = "";
+		String choixPierre = request.getParameter("pierre");
+		String choixCiseau = request.getParameter("ciseau");
+		String choixFeuille = request.getParameter("feuille");
+		if (choixFeuille == null && choixCiseau == null) {
+			requete = choixPierre;
+		} else if (choixPierre == null && choixCiseau == null) {
+			requete = choixFeuille;
+		} else if (choixPierre == null && choixFeuille == null) {
+			requete = choixCiseau;
+		}
+
+		System.out.println("choix du joueur : " + requete);
+		System.out.println("------------------------------------------");
+
+		Boolean victoire = false;
+		
+
+		if (requete == "pierre" && botTentative == "pierre") {
+			victoire = false;
+		} else if (requete == "feuille" && botTentative == "feuille") {
+			victoire = false;
+		} else if (requete == "ciseau" && botTentative == "ciseau") {
+			victoire = false;
+		} else if (requete == "pierre" && botTentative == "feuille") {
+			victoire = false;
+		} else if (requete == "feuille" && botTentative == "pierre") {
+			victoire = true;
+		} else if (requete == "feuille" && botTentative == "ciseau") {
+			victoire = false;
+		} else if (requete == "ciseau" && botTentative == "feuille") {
+			victoire = true;
+		} else if (requete == "pierre" && botTentative == "ciseau") {
+			victoire = true;
+		} else if (requete == "ciseau" && botTentative == "pierre") {
+			victoire = false;
+		}
+
+		if (victoire == false) {
+            request.setAttribute("result", victoire);
+			RequestDispatcher rd = request.getRequestDispatcher("/Resultat.jsp");
+			rd.forward(request, response);
+		} else if (victoire == true) {
+			request.setAttribute("result", victoire);
+			RequestDispatcher rd = request.getRequestDispatcher("/Resultat.jsp");
+			rd.forward(request, response);
+		}
+
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
+		doGet(request, response);
+	}
+
+}

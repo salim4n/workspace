@@ -1,0 +1,113 @@
+<html>
+<head>
+<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+	<script src="bootstrap/js/jquery-1.11.0.min.js"></script>
+	<script src="bootstrap/js/bootstrap.min.js"></script>
+	<script src="bootstrap/js/wow.min.js"></script>
+	<meta charset="UTF-8">
+	<style>
+		th, td {
+		  padding: 15px;
+		}
+	</style>
+</head>
+
+<body>
+<div class="container-fluid">
+	<h2>Eni-Enchères</h2>
+	<div  class="row">
+	<div align="center">
+		<h2>Nouvelle vente</h2>
+	</div>
+	</div>
+	
+	 <div class="col-md-6">
+		<img class="" src="/wp-content/themes/creativeforces/images/majapic.jpg" width="200px">
+	 	<table border="0" align="right">
+			    	
+			<tbody>
+			<tr>
+			<td><label for="Article">Article: </label></td>
+			<td><input id="Article" maxlength="50" name="Article" type="text" /></td>
+			</tr>
+			<tr>
+			<td><label for="Descripion">Descripion: </label></td>
+			<td> <label for="exampleFormControlTextarea2"></label>
+			  <textarea class="form-control rounded-0" id="exampleFormControlTextarea2" rows="0"></textarea>
+			</td>
+			</tr>
+			<tr>
+			<td> <label for="inputCatégorie">Catégorie</label></td>
+             <td> <select id="inputCatégorie" class="form-control">
+             <option selected></option>
+             <option>...</option>
+            </select></td>
+            </tr>
+            <tr>
+            <td><label for="inputuploader" class="col-sm-2 col-form-label">Photo de l'article:</label></td>
+            <td><input type="Photo de l'article" class="form-control" id="inputUPLOADER" placeholder="UPLOADER"></td>
+            </tr>
+            <tr>
+            <td><label>Mise à prix:</label></td>
+  			<td><input id="price" maxlength="50" name="price" type="number" /></td>
+            </tr>
+            <tr>
+            <td><label>Début de l'enchère:</label></td>
+            <td><input class="datepicker"  name="date" type="date" />
+            
+            	<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar" viewBox="0 0 16 16">
+ 					 <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z"/>
+				</svg>
+             </td>
+            </tr>
+            <tr>
+            <td><label>Fin de l'enchère:</label></td>
+             <td><input class="datepicker"  name="date" type="date" />
+            
+            	<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar" viewBox="0 0 16 16">
+ 					 <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z"/>
+				</svg>
+             </td>
+            </tr>
+            <tr>
+            <td><label>Retrait:</label></td>
+            <td><div style="
+            width: 500px;
+             border: 2px solid black;
+             padding: 100px;
+             margin: 50px;">
+             <table>
+             	<tbody>
+             	<tr>
+             	<td>            <label>Rue:</label>
+             	</td>
+             	<td>            <input class="Rue"name="Rue" type="Rue"/>
+             	</td>
+             	</tr>
+             	<tr>
+             	<td>             <label>Code postal:</label>
+             	</td>
+             	<td>            <input class="Code postal"  name="Code postal" type="Code postal"/>
+             	</td>
+             	</tr>
+             	<tr>
+             	<td>             <label>Ville:</label>
+             	</td>
+             	<td>            <input class="Ville"  name="Ville" type="Ville"/>
+             	</td>
+             	</tr>
+             	</tbody>
+             </table>
+             </div>
+           </tr>
+            
+     <tr>      
+	<td><a href="home.html"><button name="Submit" type="submit" class="btn btn-success">Enregister </button></a></td>	
+	<td><a href="index.html"><button name="Submit" type="submit" class="btn btn-success">Annuler </button></a></td>	
+</tr>
+ </tbody>
+ </table>
+ </div>
+ </div>
+ </body>
+  </html>

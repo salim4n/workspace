@@ -1,0 +1,34 @@
+@charset "UTF-8";
+
+body {
+	background-color: darkgrey;
+}
+
+h1 {
+	color: darkorange;
+}
+
+#top {
+	background-color: #400080;
+	border: 30px rainure;
+	border-color: red;
+	text-align : left;
+}
+
+#btn1 {
+	padding: 30px;
+	width: 300px;
+	border-radius: 20px;
+}
+
+#btn2 {
+	padding: 30px;
+	width: 300px;
+	border-radius: 20px;
+}
+
+#btn3 {
+	padding: 30px;
+	width: 300px;
+	border-radius: 20px;
+}

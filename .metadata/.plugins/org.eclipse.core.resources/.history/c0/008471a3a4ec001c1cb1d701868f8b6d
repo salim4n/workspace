@@ -1,0 +1,66 @@
+package fr.eni.projetEnchere.dal;
+
+import java.io.PrintWriter;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+import fr.eni.projetEnchere.bo.Retrait;
+
+public class RetraitDAOjdbcImpl implements RetraitDAO {
+
+	public static final String INSERT_RETRAIT = "insert into retrait(rue,code_postal,ville)values(?,?,?)";
+
+	public static final String VOIR_RETRAIT = "select * from retrait";
+
+	@Override
+	public void insertRetrait(Retrait retrait) throws SQLException {
+
+		try (Connection cnx = ConnectionProvider.getConnection();) {
+
+			PreparedStatement pstmt = cnx.prepareStatement(INSERT_RETRAIT);
+			pstmt.setString(1, retrait.getRue());
+			pstmt.setString(2, retrait.getCodePostal());
+			pstmt.setString(3, retrait.getVille());
+			int res = pstmt.executeUpdate();
+			if (res == 1) {
+				ResultSet rs = pstmt.getGeneratedKeys();
+				if (rs.next()) {
+					retrait.setNoArticle(rs.getInt(1));
+				}
+			}
+			pstmt.close();
+			cnx.commit();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
+
+	@Override
+	public void voirRetrait() throws SQLException {
+		Statement stmt = null;
+		PrintWriter out = null;
+		try (Connection cnx = ConnectionProvider.getConnection();) {
+			stmt.getConnection();
+			ResultSet rs = stmt.executeQuery(VOIR_RETRAIT);
+			while (rs.next()) {
+
+				out.print(rs.toString());
+			}
+			cnx.commit();
+		} catch (Exception e) {
+			if (stmt == null) {
+				System.err.println("Pas de statement");
+			}
+			e.printStackTrace();
+		}
+		stmt.close();
+		out.close();
+
+	}
+
+}

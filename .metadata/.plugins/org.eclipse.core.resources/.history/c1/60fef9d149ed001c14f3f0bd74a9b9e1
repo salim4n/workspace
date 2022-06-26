@@ -1,0 +1,22 @@
+package fr.eni.projetEnchere.bll;
+
+import fr.eni.projetEnchere.bo.Utilisateur;
+
+public class TestBLL {
+
+	public static void main(String[] args) {
+
+		Utilisateur utilisateur = new Utilisateur();
+
+		UtilisateurManager um = new UtilisateurManager();
+
+		um.deleteUtilisateur(3);
+
+		//System.out.println(utilisateur.getPseudo());
+		//System.out.println(utilisateur.toString());
+		
+		
+
+	}
+
+}

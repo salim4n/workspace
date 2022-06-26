@@ -1,0 +1,211 @@
+package fr.eni.projetEnchere.dal;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+
+import fr.eni.projetEnchere.bo.ArticleVendu;
+import fr.eni.projetEnchere.bo.CategorieArticle;
+//import fr.eni.projetEnchere.bo.Utilisateur;
+import fr.eni.projetEnchere.bo.Utilisateur;
+
+public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
+	private static final String INSERT_ARTICLE_VENDU = "insert into ARTICLES_VENDUS(nom_article,"
+			+ "description, date_debut_encheres,date_fin_encheres,prix_initial,prix_vente,no_utilisateur,no_categorie"
+			+ "values(?,?,?,?,?,?,?,?)";
+	private static final String SELECT_ALL = "select * from ARTICLES_VENDUS";
+	private static final String SELECT_BY_SELLER = "select * from ARTICLES_VENDUS where no_utilisateur=?";
+	private static final String SELECT_BY_ID = "select * from ARTICLES_VENDUS where no_article=?";
+	private static final String SELECT_BY_LIBELLE = "select * from ARTICLES_VENDUS where nom_article=?";
+	private static final String DELETE = "delete * from ARTICLES_VENDUS where no_article=?";
+	
+	
+	//tout revérifier au niveau des exceptions
+	
+	@Override
+	public void insert(ArticleVendu articleVendu) throws SQLException {
+
+		try (Connection connection = ConnectionProvider.getConnection())
+			{
+				PreparedStatement preparedStatement = connection.prepareStatement(INSERT_ARTICLE_VENDU, PreparedStatement.RETURN_GENERATED_KEYS);
+				preparedStatement.setString(1, articleVendu.getNomArticle());
+				preparedStatement.setString(2, articleVendu.getDescription());
+				preparedStatement.setDate(3, java.sql.Date.valueOf(articleVendu.getDateDebutEncheres()));
+				preparedStatement.setDate(4, java.sql.Date.valueOf(articleVendu.getDateFinEncheres()));
+				preparedStatement.setInt(5, articleVendu.getMiseAPrix());
+				preparedStatement.setInt(6, articleVendu.getPrixVente());
+				preparedStatement.setInt(7, articleVendu.getVendeur().getNoUtilisateur());
+				preparedStatement.setInt(8, articleVendu.getCategorieArticle().getNoCategorie());
+				
+				preparedStatement.executeUpdate();
+				
+				ResultSet resultSet= preparedStatement.getGeneratedKeys();
+				if(resultSet.next()) {
+					articleVendu.setNoArticle(resultSet.getInt(1));
+					articleVendu.getLieuRetrait().setNoArticle(resultSet.getInt(1));
+					}
+				resultSet.close();
+				preparedStatement.close();
+			} catch(SQLException e){
+				e.printStackTrace();
+				}
+			System.out.println("article inséré");
+	}
+	
+	public void delete(int id) {
+		try (Connection connection = ConnectionProvider.getConnection())
+		{
+			PreparedStatement preparedStatement = connection.prepareStatement(DELETE, PreparedStatement.RETURN_GENERATED_KEYS);
+			preparedStatement.setInt(1, id);
+			preparedStatement.executeUpdate();
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+			}
+	}
+
+	@Override
+	public ArticleVendu selectById(int id) {
+		
+		ArticleVendu articleVendu = new ArticleVendu();
+		
+		try (Connection connection = ConnectionProvider.getConnection())
+		{
+			PreparedStatement preparedStatement = connection.prepareStatement(SELECT_BY_ID, PreparedStatement.RETURN_GENERATED_KEYS);
+			preparedStatement.setInt(1, id);
+			ResultSet resultSet = preparedStatement.executeQuery();
+			if(resultSet.next()) {
+				articleVendu = articleBuilder(resultSet);
+			}
+		} catch(Exception e) {
+			e.printStackTrace();
+			}
+			
+		return articleVendu;		
+		
+	}
+
+	//retourne une liste de tous les articles
+	@Override
+	public List<ArticleVendu> ListAll() throws SQLException{
+		
+		Connection connection = null;
+		Statement statement = null;
+		ResultSet resultSet = null;
+		List<ArticleVendu> listeArticles = new ArrayList<>();
+		
+		try {
+			connection=ConnectionProvider.getConnection();
+			statement=connection.createStatement();
+			resultSet=statement.executeQuery(SELECT_ALL);
+			
+			while (resultSet.next()) {
+				ArticleVendu articleVendu = new ArticleVendu();
+				articleVendu = articleBuilder(resultSet);
+				listeArticles.add(articleVendu);
+				} 
+		} catch (Exception e) {
+				if (statement == null) {
+					System.err.println("Erreur: Pas de statement");
+				}
+				e.printStackTrace();
+		}
+		return listeArticles;
+	}
+	
+	//liste par vendeur
+	@Override
+	public List<ArticleVendu> ListBySeller(int id) throws SQLException {
+		
+		Connection connection = null;
+		Statement statement = null;
+		ResultSet resultSet = null;
+		List<ArticleVendu> listeArticles = new ArrayList<>();
+		
+		try {
+			connection=ConnectionProvider.getConnection();
+			statement=connection.createStatement();
+			resultSet=statement.executeQuery(SELECT_BY_SELLER);
+			
+			while (resultSet.next()) {
+				ArticleVendu articleVendu = new ArticleVendu();
+				articleVendu = articleBuilder(resultSet);
+				listeArticles.add(articleVendu);
+				} 
+		} catch (Exception e) {
+				if (statement == null) {
+					System.err.println("Erreur: Pas de statement");
+				}
+				e.printStackTrace();
+		}
+		return listeArticles;
+	}
+
+
+	
+	//builder
+	public ArticleVendu articleBuilder(ResultSet resultSet) throws SQLException {
+		
+		ArticleVendu articleVendu = new ArticleVendu();
+		
+		articleVendu.setNoArticle(resultSet.getInt("no_article"));
+		articleVendu.setNomArticle(resultSet.getString("nom_article"));
+		articleVendu.setDescription(resultSet.getString("description"));
+		articleVendu.setDateDebutEncheres(resultSet.getDate("date_debut_encheres").toLocalDate());
+		articleVendu.setDateFinEncheres(resultSet.getDate("date_debut_encheres").toLocalDate());
+		articleVendu.setMiseAPrix(resultSet.getInt("prix_initial"));
+		articleVendu.setPrixVente(resultSet.getInt("prix_vente"));
+		articleVendu.setVendeur(articleVendeurBuilder(resultSet.getInt("no_utilisateur")));
+		articleVendu.setCategorieArticle(articleCategorieBuilder(resultSet.getInt("no_categorie")));
+		
+		return articleVendu;
+	}
+	
+	public Utilisateur articleVendeurBuilder(int id) {
+		UtilisateurDAO utilisateurDAO = UtilisateurFactory.getUtilisateur();
+		Utilisateur vendeur = new Utilisateur();
+		try {vendeur = utilisateurDAO.selectByNo(id);
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		return vendeur;
+	}
+	
+	public CategorieArticle articleCategorieBuilder(int id) {
+		CategorieArticleDAO categorieArticleDAO = CategorieArticleFactory.getCategorieArticleDAO();
+		CategorieArticle categorieArticle = new CategorieArticle();
+		try {
+			categorieArticle = categorieArticleDAO.selectById(id);
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		return categorieArticle;
+	}
+
+	@Override
+	public ArticleVendu selectByLibelle(String libelle) {
+		
+		ArticleVendu articleVendu = new ArticleVendu();
+		
+		try (Connection connection = ConnectionProvider.getConnection())
+		{
+			PreparedStatement preparedStatement = connection.prepareStatement(SELECT_BY_LIBELLE, PreparedStatement.RETURN_GENERATED_KEYS);
+			preparedStatement.setString(1, libelle);
+			ResultSet resultSet = preparedStatement.executeQuery();
+			if(resultSet.next()) {
+				articleVendu = articleBuilder(resultSet);
+			}
+		} catch(Exception e) {
+			e.printStackTrace();
+			}
+			
+		return articleVendu;	
+	}
+	
+	}

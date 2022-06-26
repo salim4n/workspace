@@ -1,0 +1,16 @@
+package fr.eni.projetEnchere.bll;
+
+import java.time.LocalDateTime;
+
+import fr.eni.projetEnchere.bo.Utilisateur;
+
+public class TestBLL {
+
+	public static void main(String[] args) {
+
+	LocalDateTime.now();
+		
+
+	}
+
+}

@@ -1,0 +1,162 @@
+package fr.eni.test.heritage;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import fr.eni.test.heritage.Ludus;
+
+
+public class Arena {
+	
+	
+	public static void main(String[] args) {
+
+		Hoplites leo = new Hoplites("leonidas");
+		Hoplites hanni = new Hoplites("hannibal");
+
+		Legionnaire scylla = new Legionnaire("scylla");
+		Legionnaire glaber = new Legionnaire(" glaber");
+
+		Gladiateur spartacus = new Gladiateur("spartacus");
+		Gladiateur crixus = new Gladiateur("crixus");
+		
+		Guerrier guerrier1 = new Guerrier();
+		Guerrier guerrier2 = new Guerrier();
+
+		System.out.println("Bienvenue a tous dans l'arene de combat");
+		System.out.println("------------------------------------------");
+
+		List<Gladiateur> ludus = new ArrayList<>();
+		ludus.add(new Gladiateur("Gannicus"));
+		ludus.add( new Gladiateur("Oenomaus"));
+		ludus.add(crixus);
+		ludus.add( spartacus);
+		ludus.add(new Gladiateur("Bastor"));
+	
+		do {
+				int j = (int) (Math.random() * ludus.size());
+				guerrier1 = ludus.get(j);
+				 j = (int) (Math.random() * ludus.size());
+				guerrier2 = ludus.get(j);
+		}while(guerrier1 == guerrier2);
+		System.out.printf("Les combattants seront :%n%n%s%n%s%n",guerrier1, guerrier2 );
+		
+		ArrayList<Date> dates = new ArrayList<>();
+		dates.add(new Date());
+		for (Date date : dates) {
+			System.out.println(date);
+		}
+		
+		System.out.printf("%nCe combat opposera %s a %s !!%n%n", guerrier1.getName(), guerrier2.getName());
+
+		do {
+			int w = (int) (Math.random() * 3);
+			if (w == 1) {
+				int z;
+				z = (int) (Math.random() * 16);
+				switch (z) {
+				case 1:
+					guerrier1.takeRageDamage();
+					break;
+				case 2:
+				case 3:
+					guerrier1.takeHorizontalDamage();
+					break;
+				case 4:
+				case 5:
+					guerrier1.takeLateralDamage();
+					break;
+				case 6:
+				case 7:
+					guerrier1.takeEstocDamage();
+					break;
+				case 8:
+				case 9:
+				case 10:
+				case 11:
+					if (guerrier1.endurance < 20) {
+						guerrier1.sante -= 5;
+						System.out.printf(
+								"%n%s n'arrive plus a tenir son bouclier a cause de la fatigue et subit 5 points de degats !!%n%n",
+								guerrier1.name);
+					} else {
+						guerrier1.blockDamage();
+					}
+					break;
+				case 12:
+				case 13:
+				case 14:
+				case 15:
+					if (guerrier1.endurance < 20) {
+						guerrier1.sante -= 2;
+						System.out.printf(
+								"%n%s rate son esquive et tombe sur le sol et subit 2 points de degats !!%n%n",
+								guerrier1.name);
+					} else {
+						guerrier1.dodgeDamage();
+					}
+					break;
+
+				}
+			} else if (w == 2) {
+				int f;
+				f = (int) (Math.random() * 16);
+				switch (f) {
+				case 1:
+					guerrier2.takeRageDamage();
+					break;
+				case 2:
+				case 3:
+					guerrier2.takeHorizontalDamage();
+					break;
+				case 4:
+				case 5:
+					guerrier2.takeLateralDamage();
+					break;
+				case 6:
+				case 7:
+					guerrier2.takeEstocDamage();
+					break;
+				case 8:
+				case 9:
+				case 10:
+				case 11:
+					if (guerrier2.endurance < 20) {
+						guerrier2.sante -= 5;
+						System.out.printf(
+								"%n%s n'arrive plus a tenir son bouclier a cause de la fatigue et subit 5 points de degats !!%n",
+								guerrier2.name);
+					} else {
+						guerrier2.blockDamage();
+					}
+					break;
+				case 12:
+				case 13:
+				case 14:
+				case 15:
+					if (guerrier2.endurance < 20) {
+						guerrier2.sante -= 2;
+						System.out.printf("%n%s rate son esquive, tombe sur le sol et subit 2 points de degats !!%n",
+								guerrier2.name);
+					} else {
+						guerrier2.dodgeDamage();
+					}
+				}
+			}
+			if (guerrier2.sante <= 0) {
+				System.out.printf("%n%s est tombe au combat.", guerrier2.name);
+			} else if (guerrier1.sante <= 0) {
+				System.out.printf("%n%s est tombe au combat.", guerrier1.name);
+			}
+
+		} while (guerrier2.sante > 0 && guerrier1.sante > 0);
+
+		System.out.printf("%n%n%s%n%s%n", guerrier2, guerrier1);
+		
+
+	}
+
+
+
+}
+

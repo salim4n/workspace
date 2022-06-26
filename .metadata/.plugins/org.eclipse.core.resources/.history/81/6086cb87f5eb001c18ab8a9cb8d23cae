@@ -1,0 +1,54 @@
+package fr.eni.projetEnchere.servlet;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.sql.Connection;
+import java.sql.SQLException;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import fr.eni.projetEnchere.bll.UtilisateurManager;
+import fr.eni.projetEnchere.dal.ConnectionProvider;
+
+/**
+ * Servlet implementation class ServletPoolConnexion
+ */
+@WebServlet(urlPatterns = { "/ServletPoolConnexion" })
+public class ServletPoolConnexion extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		PrintWriter out = response.getWriter();
+
+		try {
+			Connection cnx = ConnectionProvider.getConnection();
+			out.print("La connexion est " + (cnx.isClosed() ? "fermee" : "ouverte") + ".");
+			cnx.close();
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+			out.print("ca ne se connecte pas");
+		}
+		
+		UtilisateurManager um = new UtilisateurManager();
+		try {
+			um.ajoutUtilisateur("hannibal","roger","trouducul","fuck@zebi.com","696969699","rue de la pipe","696969","cap agde","mdp",600,1);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		
+
+	}
+
+}

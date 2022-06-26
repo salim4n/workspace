@@ -1,0 +1,44 @@
+package fr.eni.projetEnchere.bll;
+
+import java.sql.SQLException;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+
+import fr.eni.projetEnchere.bo.ArticleVendu;
+import fr.eni.projetEnchere.bo.CategorieArticle;
+import fr.eni.projetEnchere.bo.Retrait;
+import fr.eni.projetEnchere.bo.Utilisateur;
+import fr.eni.projetEnchere.dal.ArticleVenduDAO;
+import fr.eni.projetEnchere.dal.ArticleVenduFactory;
+
+public class ArticleVenduManager {
+	
+	private ArticleVenduDAO articleVenduDao;
+	
+	public ArticleVenduManager() {
+		this.articleVenduDao = ArticleVenduFactory.getArticleVenduDAO();
+	}
+	
+	/*public ArticleVendu ajoutArticleVendu(String nomArticle, String description, CategorieArticle categorieArticle,
+			Utilisateur vendeur, LocalDateTime dateDebutEncheres, LocalDateTime dateFinEncheres, int miseAPrix,
+			int prixVente, EtatVente etatVente, Retrait lieuRetrait) {
+		
+		ArticleVendu articleVendu = new ArticleVendu(nomArticle,description,categorieArticle,vendeur,dateDebutEncheres,dateFinEncheres,miseAPrix,prixVente,etatVente,lieuRetrait);
+		return articleVendu;
+		
+	}*/
+	
+	public ArticleVendu ajoutArticleVendu(String nomArticle, String description, CategorieArticle categorieArticle,
+			Utilisateur vendeur, LocalDateTime dateDebutEncheres, LocalDateTime dateFinEncheres, int miseAPrix, Retrait lieuRetrait) {
+		
+		ArticleVendu articleVendu = new ArticleVendu(nomArticle,description,categorieArticle,vendeur,dateDebutEncheres,dateFinEncheres,miseAPrix,lieuRetrait);
+		return articleVendu;
+	}
+	
+	public List<ArticleVendu> selectAll()throws SQLException {
+		List<ArticleVendu>liste = new ArrayList<>();
+		liste = articleVenduDao.ListAll();
+		return liste;
+	}
+}
